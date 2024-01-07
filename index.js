@@ -1,12 +1,16 @@
 require("dotenv").config();
+const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+const cors = require("cors");
 const shoproute = require("./routes/shopRouter");
 const orderRoute = require("./routes/orderRouter");
 
 app.use(express.json());
+app.use(cors()); // Aktifkan penggunaan cors
 app.use(express.urlencoded({ extended: true }));
+app.use("/img", express.static(path.join(__dirname, "./public/img")));
 
 app.use("/api", shoproute);
 app.use("/api/orders", orderRoute);
